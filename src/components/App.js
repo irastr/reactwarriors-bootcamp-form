@@ -12,22 +12,20 @@ export default class App extends React.Component {
     currentStage: 0,
     stage: [
       {
-        // name: "Basic",
         isActive: true,
         isFinished: false
       },
       {
-        // name: "Contacts",
         isActive: false,
         isFinished: false
       },
       {
-        // name: "Avatar",
+
         isActive: false,
         isFinished: false
       },
       {
-        // name: "Finish",
+
         isActive: false,
         isFinished: false
       }
@@ -66,10 +64,13 @@ export default class App extends React.Component {
     const value = e.target.value;
     this.setState(prevState => ({
       fields: { ...prevState.fields, [name]: value },
-      errors: {
-        ...prevState.errors,
-        name: null
-      }
+      // errors: {
+      //   ...prevState.errors,
+      //   base: null,
+      //   [name]: null
+      // }
+
+
     }));
 
 
@@ -102,7 +103,7 @@ export default class App extends React.Component {
     if (Object.keys(errors).length > 0) {
       // error
       this.setState({
-        errors: errors
+        errors
       });
     } else {
       this.setState({
@@ -111,15 +112,31 @@ export default class App extends React.Component {
     }
 
 
+    // if (Object.keys(errors).length > 0) {
+    //   // error
+    //   this.setState({
+    //     errors: errors
+    //   });
+    // } else {
+    //   this.setState({
+    //     errors: {}
+    //   });
+    // }
+
+
   }
 
   handleForwardClick = () => {
+    // const errors = {};
+    // const { errors } = this.state
+    // const errors = this.validateErrors()
 
 
     this.validateErrors()
-
     const { errors } = this.state
-
+    console.log(this.state.errors)
+    // console.log(Object.keys(errors).length)
+    // this.validateErrors()
     if (Object.keys(errors).length === 0) {
 
       const newStage = [...this.state.stage]
