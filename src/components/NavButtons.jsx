@@ -4,7 +4,7 @@ class NavButtons extends React.Component {
 
     render() {
         const { handleBackClick, handleForwardClick } = this.props
-        return (<div>
+        return (<div className="d-flex justify-content-center">
             <button
                 type="button"
                 className="btn btn-primary"

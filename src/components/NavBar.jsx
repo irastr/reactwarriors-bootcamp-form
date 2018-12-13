@@ -10,7 +10,7 @@ class NavBar extends React.Component {
     }
 
     render() {
-        const { stage } = this.props
+        // const { stage } = this.props
 
 
         return (<div>

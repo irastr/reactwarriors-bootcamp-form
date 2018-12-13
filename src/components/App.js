@@ -34,47 +34,35 @@ export default class App extends React.Component {
     fields: {
 
       firstname: "iraaaa",
-      lastname: "str",
+      lastname: "strikun",
       password: "str14795",
       repeatPassword: "str14795",
       gender: "male",
-      email: "",
-      mobile: "",
-      country: "",
+      email: "ira@gmail.com",
+      mobile: "0639490872",
+      country: "1",
       city: "",
+      avatar: ""
 
     },
     errors: {
       username: false,
       lastname: false,
       password: false,
-      repeatPassword: false
+      repeatPassword: false,
+      email: false,
+      mobile: false
     }
 
   }
 
-  onChange = e => {
-    // console.log(event.target.name, event.target.value, event.target.checked)
+  onChange = event => {
 
-    // this.setState({
-    //   [event.target.name]: event.target.value
-    // });
-
-    const name = e.target.name;
-    const value = e.target.value;
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState(prevState => ({
       fields: { ...prevState.fields, [name]: value },
-      // errors: {
-      //   ...prevState.errors,
-      //   base: null,
-      //   [name]: null
-      // }
-
-
     }));
-
-
-
   };
 
   onChangeGender = event => {
@@ -83,60 +71,78 @@ export default class App extends React.Component {
     });
   }
 
+  onChangeAvatar = event => {
+
+    const reader = new FileReader();
+    reader.onload = event => {
+      // console.log(event.target.result)
+      this.setState(prevState => ({
+        fields: { ...prevState.fields, avatar: event.target.result },
+      }));
+      // this.setState({
+      //   fields: { avatar: event.target.result },
+      // });
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+
+  }
+
   validateErrors = () => {
+
+    const { fields, currentStage } = this.state
     const errors = {};
-    if (this.state.fields.firstname.length < 5) {
+
+    if (fields.firstname.length < 5) {
       errors.firstname = "Must be 5 characters or more";
     }
-    if (this.state.fields.lastname.length < 5) {
+    if (fields.lastname.length < 5) {
       errors.lastname = "Must be 5 characters or more";
     }
 
-    if (this.state.fields.password.length < 3) {
+    if (fields.password.length < 3) {
       errors.password = "Must be 3 characters or more";
     }
 
-    if (this.state.fields.password !== this.state.fields.repeatPassword) {
+    if (fields.password !== fields.repeatPassword) {
       errors.repeatPassword = "Must be equal password";
     }
 
+    if (currentStage === 1) {
+
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.fields.email)) {
+        errors.email = "Invalid email";
+      }
+
+      if (!this.state.fields.mobile.match(/^\d{10}$/)) {
+        errors.mobile = "Invalid mobile";
+      }
+
+    }
+
     if (Object.keys(errors).length > 0) {
-      // error
+
       this.setState({
-        errors
+        errors: errors
       });
     } else {
       this.setState({
         errors: {}
       });
+      console.log("submit", this.state);
     }
 
-
-    // if (Object.keys(errors).length > 0) {
-    //   // error
-    //   this.setState({
-    //     errors: errors
-    //   });
-    // } else {
-    //   this.setState({
-    //     errors: {}
-    //   });
-    // }
+    return errors;
 
 
   }
 
   handleForwardClick = () => {
-    // const errors = {};
-    // const { errors } = this.state
-    // const errors = this.validateErrors()
+
+    const errors = this.validateErrors()
+    console.log(errors)
 
 
-    this.validateErrors()
-    const { errors } = this.state
-    console.log(this.state.errors)
-    // console.log(Object.keys(errors).length)
-    // this.validateErrors()
     if (Object.keys(errors).length === 0) {
 
       const newStage = [...this.state.stage]
@@ -170,7 +176,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { stage, currentStage, fields, errors } = this.state
+    const { currentStage, fields, errors } = this.state
     return (
       <div className="form-container card">
         <form className="form card-body">
@@ -178,8 +184,8 @@ export default class App extends React.Component {
 
 
           {currentStage === 0 ? (<Basic onChange={this.onChange} fields={fields} errors={errors} />)
-            : currentStage === 1 ? (<Contacts />)
-              : currentStage === 2 ? (<Avatar />)
+            : currentStage === 1 ? (<Contacts fields={fields} onChange={this.onChange} errors={errors} />)
+              : currentStage === 2 ? (<Avatar fields={fields} onChange={this.onChangeAvatar} errors={errors} />)
                 : currentStage === 3 ? (<Finish />)
 
                   : (null)}
