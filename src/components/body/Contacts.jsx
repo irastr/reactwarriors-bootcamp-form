@@ -4,35 +4,23 @@ import cities from "../../data/cities"
 
 class Contacts extends React.Component {
 
-
-
     getCitiesArray = (id) => {
-        console.log(id)
+
         const citiesArray = []
         for (let key in cities) {
             if (cities[key].country === Number(id)) {
                 citiesArray.push({ id: key, name: cities[key].name })
             }
-
         }
-
         return citiesArray
     }
 
 
-    // componentDidUpdate(prevProps) {
-
-    //     if (prevProps.fields.country !== this.props.fields.country) {
-
-
-    //     }
-
-    // }
-
     render() {
 
-        const cities = this.getCitiesArray(this.props.fields.country)
+
         const { onChange, fields, errors } = this.props
+        const cities = this.getCitiesArray(fields.country)
 
         return (<div>
             <div className="form-group">
@@ -98,19 +86,21 @@ class Contacts extends React.Component {
                     name="city"
                     onChange={onChange}
                 >
+                    <option value="">
+                        Select the city
+                        </option>
                     {cities.map(country => (
                         <option key={country.id} value={country.id}>
                             {country.name}
                         </option>
                     ))}
                 </select>
+                {errors.city ? (
+                    <div className="invalid-feedback">
+                        {errors.city}
+                    </div>
+                ) : null}
             </div>
-
-
-
-
-
-
         </div>);
     }
 }
