@@ -58,7 +58,7 @@ export default class App extends React.Component {
       errors: { ...prevState.errors, [name]: false }
     }));
 
-    // Use functional setState here as this.state is used  te change current state in this case.
+    // Use functional setState as this.state is used  te change current state in this case.
     // Change errors state to hide styled of invalid-feedback in onChange.
   };
 
@@ -67,7 +67,7 @@ export default class App extends React.Component {
   onChangeAvatar = event => {
     const reader = new FileReader();
     reader.onload = event => {
-      // Reuse onChange by passing to it sintetic target with name and value 
+      // Reuse onChange by passing to it sinthetic target with name and value 
       this.onChange({
         target: {
           name: "avatar",
