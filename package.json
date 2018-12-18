@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.1.0",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "ajv": "^6.6.2",
     "autoprefixer": "7.1.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "7.2.3",
@@ -29,8 +30,10 @@
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
+    "jquery": "^3.3.1",
     "lodash": "^4.17.11",
     "object-assign": "4.1.1",
+    "popper.js": "^1.14.6",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
