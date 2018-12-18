@@ -126,7 +126,6 @@ export default class App extends React.Component {
 
   handleForwardClick = () => {
     const errors = this.validateErrors()
-
     if (Object.keys(errors).length === 0) {
       this.updateStage(1, "finished")
     } else {
@@ -134,7 +133,6 @@ export default class App extends React.Component {
         errors
       });
     }
-
   }
 
   handleBackClick = () => {
@@ -172,7 +170,6 @@ export default class App extends React.Component {
             handleForwardClick={this.handleForwardClick}
             handleBackClick={this.handleBackClick}
             currentStage={currentStage}
-
           />
         </form>
       </div>
