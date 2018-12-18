@@ -6,8 +6,10 @@ import Basic from "./body/Basic"
 import Contacts from "./body/Contacts"
 import Finish from "./body/Finish"
 
+const hoc = c => c
 
-export default class App extends React.Component {
+@hoc
+class App extends React.Component {
   state = {
     currentStage: 0,
     stage: [
@@ -176,3 +178,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default App
